@@ -1,0 +1,42 @@
+DESPYLAUNCHER - SOURCES MODIFIABLES
+=================================
+
+Le .jar est du code compile : impossible a modifier directement. Voici les sources.
+
+1) Modifier : ouvre un fichier dans src/fr/redkingdom/launcher/ avec n'importe quel editeur
+   (Bloc-notes, VS Code, IntelliJ...)
+     Main.java  -> fenetre : couleurs (en haut du fichier), titre, textes, boutons, RAM par defaut
+     Core.java  -> logique : telechargements, lancement de Minecraft, URLs
+     Json.java  -> lecteur JSON (rarement utile)
+
+2) Recompiler : double-clique sur build.bat (Windows) ou lance ./build.sh (Linux/Mac)
+   -> cree Despylauncher.jar a cote. Il faut un JDK 21 ou plus (ex: Adoptium Temurin 21).
+
+3) Lancer : double-clic sur Despylauncher.jar, ou  java -jar Despylauncher.jar
+
+Reglages sans recompiler (options -D) :
+   java -Drl.dir=C:\mon\dossier -jar Despylauncher.jar      (dossier de donnees)
+   -Drl.manifest=...  -Drl.assets=...  -Drl.libs=...      (URLs de telechargement)
+Les reglages du joueur sont sauvegardes dans <dossier>/launcher.json.
+
+NOUVEAUTES
+==========
+Bouton "Reglages" : changer le nom, la couleur et l'adresse de mise a jour sans toucher au code.
+Bouton "Mise a jour" : le launcher compare le .jar en ligne avec le sien et se remplace tout seul.
+  -> Pour l'activer : heberge Despylauncher.jar (ex: GitHub, depot public) et colle son lien direct
+     dans Reglages > Adresse de mise a jour (ou dans DEFAULT_UPDATE_URL de Main.java avant de compiler,
+     pour que ton ami l'ait d'office). A chaque nouvelle version : remplace le .jar en ligne.
+Autres boutons : Supprimer la version, Plein ecran, Captures, Logs, Arreter le jeu...
+
+NUMERO DE VERSION
+=================
+Le launcher compare son numero (version.txt, integre au .jar) avec celui en ligne.
+build.bat ajoute +1 a version.txt a chaque compilation, et publier.bat envoie
+Despylauncher.jar ET version.txt sur GitHub. Plus besoin de rien d'autre.
+
+PUBLIER UNE MISE A JOUR
+=======================
+1) Modifie les sources, puis double-clique sur build.bat (cree Despylauncher.jar, version +1).
+2) Double-clique sur publier.bat : le .jar est envoye sur GitHub (necessite Git installe
+   et d'etre connecte a GitHub la premiere fois). Les launchers se mettent a jour
+   tout seuls au prochain demarrage.
